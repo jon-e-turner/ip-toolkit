@@ -29,6 +29,13 @@ $ yarn install --save ip-toolkit
 
 const { IP } = require('ip-toolkit')
 
+
+
+// Get IP address version 
+IP.version("192.168.0.1") // "IPv4" 
+IP.version("::ffff:ffff")   // "IPv6"
+IP.version("::f1fff:ffff")   // "invalid"
+
 // Convert IPv4 or IPv6 address string to number 
 IP.ip2long("192.168.0.1") // 3232235521
 IP.ip2long('::ffff:ffff')   // 4294967295n 
@@ -217,7 +224,7 @@ IPv6.parseCIDR('::9999:ffff/118')
 
 ## Raycast Extension
 
-This project has been extended on [Raycast](https://www.raycast.com/meguoe/ip-tools) !
+This project has already released an extension plugin on [Raycast](https://www.raycast.com/meguoe/ip-tools) !
 
 <img alt="ip-toolkit" src="https://files.raycast.com/k604hs2ove2vao7k0w5qcsg4y7ze">
 <img alt="ip-toolkit" src="https://files.raycast.com/v0hr98f0irjeujn61lm5tiw6i9b4">

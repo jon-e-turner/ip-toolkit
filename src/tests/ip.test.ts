@@ -5,6 +5,7 @@ const ipConvertCases = [
   {
     result: false,
     ip: '192.168.1.a',
+    ver: 'invalid',
     long: 21212112,
     cidr: '192.168.1.1/a',
     contains: '192.168.1.1/32',
@@ -13,6 +14,7 @@ const ipConvertCases = [
   {
     result: true,
     ip: '192.168.1.255',
+    ver: 'IPv4',
     long: 3232236031,
     cidr: '192.168.1.1/0',
     contains: '192.168.1.1/24',
@@ -21,6 +23,7 @@ const ipConvertCases = [
   {
     result: true,
     ip: '255.168.1.255',
+    ver: 'IPv4',
     long: 4289200639,
     cidr: '192.168.1.1/32',
     contains: '255.168.1.1/24',
@@ -29,6 +32,7 @@ const ipConvertCases = [
   {
     result: false,
     ip: '192.168.1.256',
+    ver: 'invalid',
     long: 4289200639,
     cidr: '192.168.1.1/33',
     contains: '255.168.1.1/24',
@@ -37,6 +41,7 @@ const ipConvertCases = [
   {
     result: false,
     ip: 'ff::ffhj',
+    ver: 'invalid',
     long: 21312312,
     cidr: 'ff::ff/a',
     contains: 'ff::ff/a',
@@ -45,6 +50,7 @@ const ipConvertCases = [
   {
     result: true,
     ip: 'ff::ff',
+    ver: 'IPv6',
     long: 1324035698926381045275276563951124735n,
     cidr: 'ff::ff/0',
     contains: 'ff::ff/64',
@@ -53,6 +59,7 @@ const ipConvertCases = [
   {
     result: true,
     ip: 'ffff::aaaa',
+    ver: 'IPv6',
     long: 340277174624079928635746076935439035050n,
     cidr: 'ff::ff/128',
     contains: 'ff::ff/0',
@@ -61,6 +68,7 @@ const ipConvertCases = [
   {
     result: false,
     ip: 'affff::aaaa',
+    ver: 'invalid',
     long: 231212312,
     cidr: 'ff::ff/129',
     contains: 'ff::ff/64',
@@ -69,6 +77,7 @@ const ipConvertCases = [
   {
     result: false,
     ip: 231212312,
+    ver: 'invalid',
     long: '231212312',
     cidr: 231212312,
     contains: 1212121,
@@ -98,4 +107,8 @@ describe('isValidIP', () => {
 
 describe('isConflict', () => {
   test.each(ipConvertCases)('判断 $cidrs 是否等于 $result', ({ cidrs, result }) => expect(IP.isConflict(cidrs as any)).toBe(result));
+});
+
+describe('ipVersion', () => {
+  test.each(ipConvertCases)('判断 $ip 是否等于 $ver', ({ ip, ver }) => expect(IP.ipVersion(ip as string)).toBe(ver));
 });

@@ -113,3 +113,29 @@ export function contains(cidr: string, ip: string): boolean {
   if (typeof cidr !== 'string' || typeof ip !== 'string') return false;
   return IPv4.contains(cidr, ip) || IPv6.contains(cidr, ip);
 }
+
+/**
+ * Get IP address version
+ * 
+ * @param ip - The IP address string
+ * @returns IPv4 or IPv6
+ *
+ * @example
+ * ```
+ * ipVersion('192.168.1.5')    // IPv4
+ * contains('2001:db8::11')    // IPv6
+ * ipVersion('192.168.1.512')  // IPv4
+ * contains('20011:db8::11')   // invalid
+ * ```
+ */
+
+export function ipVersion(ip: string): 'IPv4' | 'IPv6' | 'invalid' {
+  if (typeof ip !== 'string') return 'invalid';
+  if (IPv4.isValidIP(ip)) {
+    return 'IPv4';
+  } else if (IPv6.isValidIP(ip)) {
+    return 'IPv6';
+  }
+  
+  return 'invalid';
+}
