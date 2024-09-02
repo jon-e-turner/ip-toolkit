@@ -82,11 +82,28 @@ declare function isConflict$2(cidrs: string[]): boolean;
  * ```
  */
 declare function contains$2(cidr: string, ip: string): boolean;
+/**
+ * Get IP address version
+ *
+ * @param ip - The IP address string
+ * @returns IPv4 or IPv6
+ *
+ * @example
+ * ```
+ * ipVersion('192.168.1.5')    // IPv4
+ * contains('2001:db8::11')    // IPv6
+ * ipVersion('192.168.1.512')  // IPv4
+ * contains('20011:db8::11')   // invalid
+ * ```
+ */
+declare function ipVersion(ip: string): 'IPv4' | 'IPv6' | 'invalid';
 
+declare const index$2_ipVersion: typeof ipVersion;
 declare namespace index$2 {
   export {
     contains$2 as contains,
     ip2long$2 as ip2long,
+    index$2_ipVersion as ipVersion,
     isCIDR$2 as isCIDR,
     isConflict$2 as isConflict,
     isValidIP$2 as isValidIP,
