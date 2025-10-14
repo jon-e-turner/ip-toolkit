@@ -100,15 +100,7 @@ declare function ipVersion(ip: string): 'IPv4' | 'IPv6' | 'invalid';
 
 declare const index$2_ipVersion: typeof ipVersion;
 declare namespace index$2 {
-  export {
-    contains$2 as contains,
-    ip2long$2 as ip2long,
-    index$2_ipVersion as ipVersion,
-    isCIDR$2 as isCIDR,
-    isConflict$2 as isConflict,
-    isValidIP$2 as isValidIP,
-    long2ip$2 as long2ip,
-  };
+  export { contains$2 as contains, ip2long$2 as ip2long, index$2_ipVersion as ipVersion, isCIDR$2 as isCIDR, isConflict$2 as isConflict, isValidIP$2 as isValidIP, long2ip$2 as long2ip };
 }
 
 /**
@@ -526,26 +518,7 @@ declare const index$1_toInverseMask: typeof toInverseMask;
 declare const index$1_toMaskLength: typeof toMaskLength;
 declare const index$1_toSubnetMask: typeof toSubnetMask;
 declare namespace index$1 {
-  export {
-    contains$1 as contains,
-    ip2long$1 as ip2long,
-    index$1_ipRange as ipRange,
-    isCIDR$1 as isCIDR,
-    isConflict$1 as isConflict,
-    isEqual$1 as isEqual,
-    index$1_isPrivate as isPrivate,
-    index$1_isSameSubnet as isSameSubnet,
-    isValidIP$1 as isValidIP,
-    index$1_isValidMask as isValidMask,
-    long2ip$1 as long2ip,
-    parseCIDR$1 as parseCIDR,
-    index$1_parseSubnet as parseSubnet,
-    index$1_toBinHex as toBinHex,
-    index$1_toIPv6Format as toIPv6Format,
-    index$1_toInverseMask as toInverseMask,
-    index$1_toMaskLength as toMaskLength,
-    index$1_toSubnetMask as toSubnetMask,
-  };
+  export { contains$1 as contains, ip2long$1 as ip2long, index$1_ipRange as ipRange, isCIDR$1 as isCIDR, isConflict$1 as isConflict, isEqual$1 as isEqual, index$1_isPrivate as isPrivate, index$1_isSameSubnet as isSameSubnet, isValidIP$1 as isValidIP, index$1_isValidMask as isValidMask, long2ip$1 as long2ip, parseCIDR$1 as parseCIDR, index$1_parseSubnet as parseSubnet, index$1_toBinHex as toBinHex, index$1_toIPv6Format as toIPv6Format, index$1_toInverseMask as toInverseMask, index$1_toMaskLength as toMaskLength, index$1_toSubnetMask as toSubnetMask };
 }
 
 /**
@@ -714,18 +687,7 @@ declare const index_isValidIP: typeof isValidIP;
 declare const index_long2ip: typeof long2ip;
 declare const index_parseCIDR: typeof parseCIDR;
 declare namespace index {
-  export {
-    index_compressedForm as compressedForm,
-    index_contains as contains,
-    index_expandedForm as expandedForm,
-    index_ip2long as ip2long,
-    index_isCIDR as isCIDR,
-    index_isConflict as isConflict,
-    index_isEqual as isEqual,
-    index_isValidIP as isValidIP,
-    index_long2ip as long2ip,
-    index_parseCIDR as parseCIDR,
-  };
+  export { index_compressedForm as compressedForm, index_contains as contains, index_expandedForm as expandedForm, index_ip2long as ip2long, index_isCIDR as isCIDR, index_isConflict as isConflict, index_isEqual as isEqual, index_isValidIP as isValidIP, index_long2ip as long2ip, index_parseCIDR as parseCIDR };
 }
 
 export { index$2 as IP, index$1 as IPv4, index as IPv6 };
