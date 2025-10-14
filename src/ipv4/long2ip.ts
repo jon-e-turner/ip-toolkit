@@ -12,11 +12,11 @@
  */
 
 export function long2ip(ip: number): string | undefined {
-  if (typeof ip !== "number" || isNaN(ip)) return undefined;
+  if (typeof ip !== 'number' || isNaN(ip)) return undefined;
   if (ip >= 0 && ip <= 4294967295) {
     const parts: number[] = [];
     for (let i = 3; i >= 0; i--) parts.push((ip >>> (i * 8)) & 255);
-    return parts.join(".");
+    return parts.join('.');
   } else {
     return undefined;
   }

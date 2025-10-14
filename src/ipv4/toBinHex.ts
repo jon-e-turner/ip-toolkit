@@ -1,4 +1,4 @@
-import { ip2long, isValidIP } from "./index";
+import { ip2long, isValidIP } from './index';
 
 interface BinHex {
   hex: string;
@@ -29,7 +29,7 @@ export function toBinHex(ip: string): BinHex | undefined {
 
   return {
     decimal: longIP,
-    hex: `0x${longIP.toString(16).padStart(8, "0")}`,
-    binary: longIP.toString(2).padStart(32, "0"),
+    hex: `0x${longIP.toString(16).padStart(8, '0')}`,
+    binary: longIP.toString(2).padStart(32, '0'),
   };
 }

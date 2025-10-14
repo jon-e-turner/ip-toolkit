@@ -1,5 +1,5 @@
-import { IPv4 } from "../index";
-import { isValidIP } from "./index";
+import { IPv4 } from '../index';
+import { isValidIP } from './index';
 
 interface BinHex {
   hex: string;
@@ -21,11 +21,11 @@ interface BinHex {
 
 export function expandedForm(ip: string): string | undefined {
   if (!isValidIP(ip)) return undefined;
-  if (ip === "::") return "0000:".repeat(8).slice(0, -1);
+  if (ip === '::') return '0000:'.repeat(8).slice(0, -1);
 
-  const sections: string[] = ip.split(":");
+  const sections: string[] = ip.split(':');
   for (let i = 0; i < sections.length; i++) {
-    if (sections[i] === "" && sections[i + 1] === "") sections.splice(i, 1);
+    if (sections[i] === '' && sections[i + 1] === '') sections.splice(i, 1);
   }
 
   const last = sections[sections.length - 1];
@@ -37,8 +37,8 @@ export function expandedForm(ip: string): string | undefined {
   return sections
     .map((section) => {
       return section
-        ? section.padStart(4, "0")
-        : "0000:".repeat(9 - sections.length).slice(0, -1);
+        ? section.padStart(4, '0')
+        : '0000:'.repeat(9 - sections.length).slice(0, -1);
     })
-    .join(":");
+    .join(':');
 }

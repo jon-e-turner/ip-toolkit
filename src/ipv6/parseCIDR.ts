@@ -1,4 +1,4 @@
-import { ip2long, long2ip, isValidIP } from "./index";
+import { ip2long, long2ip, isValidIP } from './index';
 
 interface SubNet {
   ipCount: bigint;
@@ -28,10 +28,10 @@ interface SubNet {
  */
 
 export function parseCIDR(cidr: string) {
-  if (typeof cidr !== "string") return undefined;
+  if (typeof cidr !== 'string') return undefined;
 
-  const [ip, mask] = cidr.split("/");
-  if (ip === undefined || mask === undefined || mask === "") return undefined;
+  const [ip, mask] = cidr.split('/');
+  if (ip === undefined || mask === undefined || mask === '') return undefined;
 
   const prefixLength = +mask;
   if (

@@ -1,188 +1,188 @@
-import { IPv6 } from "../index";
+import { IPv6 } from '../index';
 
 const convertFailCases = [
   { ip: -1n, ip2: 340282n },
   { ip: 22222, ip2: -122n },
-  { ip: "aa", ip2: "0xffff" },
-  { ip: ":1:", ip2: "0xffff" },
-  { ip: ":::", ip2: "0xffff" },
-  { ip: "1:::", ip2: "0xffff" },
-  { ip: "1:::1", ip2: "0xffff" },
-  { ip: "g::s:@", ip2: "0xffff" },
-  { ip: "::392.168.1.1", ip2: "0xffff" },
-  { ip: "g001:db8:f29f::2f4e", ip2: "0xffff" },
-  { ip: "0000:0000:0000:0000:0000:0000:0000", ip2: "0xffff" },
-  { ip: "ffff:ffff:ffff:ffff:ffff:ffff:ffff", ip2: "0xffff" },
-  { ip: "0000:0000:0000:0000:0000:0000:0000:g000", ip2: "0xffff" },
-  { ip: 3402823669209384634633746074317682114561n, ip2: "0xffff" },
+  { ip: 'aa', ip2: '0xffff' },
+  { ip: ':1:', ip2: '0xffff' },
+  { ip: ':::', ip2: '0xffff' },
+  { ip: '1:::', ip2: '0xffff' },
+  { ip: '1:::1', ip2: '0xffff' },
+  { ip: 'g::s:@', ip2: '0xffff' },
+  { ip: '::392.168.1.1', ip2: '0xffff' },
+  { ip: 'g001:db8:f29f::2f4e', ip2: '0xffff' },
+  { ip: '0000:0000:0000:0000:0000:0000:0000', ip2: '0xffff' },
+  { ip: 'ffff:ffff:ffff:ffff:ffff:ffff:ffff', ip2: '0xffff' },
+  { ip: '0000:0000:0000:0000:0000:0000:0000:g000', ip2: '0xffff' },
+  { ip: 3402823669209384634633746074317682114561n, ip2: '0xffff' },
 ];
 
 // IP 格式转换测试用例
 const ipConvertCases = [
   {
-    compres: "::",
+    compres: '::',
     long: 0n,
-    expand: "0000:0000:0000:0000:0000:0000:0000:0000",
+    expand: '0000:0000:0000:0000:0000:0000:0000:0000',
   },
   {
-    compres: "::1",
+    compres: '::1',
     long: 1n,
-    expand: "0000:0000:0000:0000:0000:0000:0000:0001",
+    expand: '0000:0000:0000:0000:0000:0000:0000:0001',
   },
   {
-    compres: "::ffff",
+    compres: '::ffff',
     long: 65535n,
-    expand: "0000:0000:0000:0000:0000:0000:0000:ffff",
+    expand: '0000:0000:0000:0000:0000:0000:0000:ffff',
   },
   {
-    compres: "1::",
+    compres: '1::',
     long: 5192296858534827628530496329220096n,
-    expand: "0001:0000:0000:0000:0000:0000:0000:0000",
+    expand: '0001:0000:0000:0000:0000:0000:0000:0000',
   },
   {
-    compres: "1::1",
+    compres: '1::1',
     long: 5192296858534827628530496329220097n,
-    expand: "0001:0000:0000:0000:0000:0000:0000:0001",
+    expand: '0001:0000:0000:0000:0000:0000:0000:0001',
   },
   {
-    compres: "ff:ff::ff",
+    compres: 'ff:ff::ff',
     long: 1324055902107822182681362917658460415n,
-    expand: "00ff:00ff:0000:0000:0000:0000:0000:00ff",
+    expand: '00ff:00ff:0000:0000:0000:0000:0000:00ff',
   },
   {
-    compres: "f:f:f:f:f:f:f:f",
+    compres: 'f:f:f:f:f:f:f:f',
     long: 77885641318594292392624080437575695n,
-    expand: "000f:000f:000f:000f:000f:000f:000f:000f",
+    expand: '000f:000f:000f:000f:000f:000f:000f:000f',
   },
   {
-    compres: "2001:db8:f29f::2f4e",
+    compres: '2001:db8:f29f::2f4e',
     long: 42540766486370184438988217621829136206n,
-    expand: "2001:0db8:f29f:0000:0000:0000:0000:2f4e",
+    expand: '2001:0db8:f29f:0000:0000:0000:0000:2f4e',
   },
   {
-    compres: "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    compres: 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff',
     long: 340282366920938463463374607431768211455n,
-    expand: "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    expand: 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff',
   },
 ];
 
-describe("isEqual", () => {
-  test.each(ipConvertCases)("判断 $ip 是否等于 $long", ({ expand, long }) =>
+describe('isEqual', () => {
+  test.each(ipConvertCases)('判断 $ip 是否等于 $long', ({ expand, long }) =>
     expect(IPv6.isEqual(expand, long)).toBe(true)
   );
-  test.each(convertFailCases)("判断 $ip 是否为 false", ({ ip, ip2 }) =>
+  test.each(convertFailCases)('判断 $ip 是否为 false', ({ ip, ip2 }) =>
     expect(IPv6.isEqual(ip as any, ip2 as any)).toBe(false)
   );
 });
 
-describe("ip2long", () => {
-  test.each(ipConvertCases)("将 $expand 转换为 $long", ({ long, expand }) =>
+describe('ip2long', () => {
+  test.each(ipConvertCases)('将 $expand 转换为 $long', ({ long, expand }) =>
     expect(IPv6.ip2long(expand as any)).toBe(long)
   );
-  test.each(ipConvertCases)("将 $compres 转换为 $long", ({ long, compres }) =>
+  test.each(ipConvertCases)('将 $compres 转换为 $long', ({ long, compres }) =>
     expect(IPv6.ip2long(compres as any)).toBe(long)
   );
-  test.each(convertFailCases)("判断 $ip 是否为 undefined", ({ ip }) =>
+  test.each(convertFailCases)('判断 $ip 是否为 undefined', ({ ip }) =>
     expect(IPv6.ip2long(ip as any)).toBe(undefined)
   );
 });
 
-describe("long2ip", () => {
-  test.each(ipConvertCases)("将 $long 转换为 $compres", ({ long, compres }) =>
+describe('long2ip', () => {
+  test.each(ipConvertCases)('将 $long 转换为 $compres', ({ long, compres }) =>
     expect(IPv6.long2ip(long as any)).toBe(compres)
   );
-  test.each(convertFailCases)("判断 $ip 是否为 undefined", ({ ip }) =>
+  test.each(convertFailCases)('判断 $ip 是否为 undefined', ({ ip }) =>
     expect(IPv6.long2ip(ip as any)).toBe(undefined)
   );
 });
 
-describe("expandedForm", () => {
+describe('expandedForm', () => {
   test.each(ipConvertCases)(
-    "将 $compres 转换为 $expand",
+    '将 $compres 转换为 $expand',
     ({ compres, expand }) =>
       expect(IPv6.expandedForm(compres as any)).toBe(expand)
   );
-  test.each(convertFailCases)("判断 $ip 是否为 undefined", ({ ip }) =>
+  test.each(convertFailCases)('判断 $ip 是否为 undefined', ({ ip }) =>
     expect(IPv6.expandedForm(ip as any)).toBe(undefined)
   );
-  it("将 1::192.168.1.1 转换为 0001:0000:0000:0000:0000:0000:c0a8:0101 ", () =>
-    expect(IPv6.expandedForm("1::192.168.1.1")).toBe(
-      "0001:0000:0000:0000:0000:0000:c0a8:0101"
+  it('将 1::192.168.1.1 转换为 0001:0000:0000:0000:0000:0000:c0a8:0101 ', () =>
+    expect(IPv6.expandedForm('1::192.168.1.1')).toBe(
+      '0001:0000:0000:0000:0000:0000:c0a8:0101'
     ));
 });
 
-describe("compressedForm", () => {
+describe('compressedForm', () => {
   test.each(ipConvertCases)(
-    "将 $expand 转换为 $compres",
+    '将 $expand 转换为 $compres',
     ({ expand, compres }) =>
       expect(IPv6.compressedForm(expand as any)).toBe(compres)
   );
-  test.each(convertFailCases)("判断 $ip 是否为 undefined", ({ ip }) =>
+  test.each(convertFailCases)('判断 $ip 是否为 undefined', ({ ip }) =>
     expect(IPv6.compressedForm(ip as any)).toBe(undefined)
   );
-  it("将 1::192.168.1.1 转换为 1::c0a8:101 ", () =>
-    expect(IPv6.compressedForm("1::192.168.1.1")).toBe("1::c0a8:101"));
+  it('将 1::192.168.1.1 转换为 1::c0a8:101 ', () =>
+    expect(IPv6.compressedForm('1::192.168.1.1')).toBe('1::c0a8:101'));
 });
 
 // CIDR Range 测试用例
 const cidrConvertCases = [
   {
-    cidr: "ff:ff::ff/120",
-    contains: "ff:ff::",
+    cidr: 'ff:ff::ff/120',
+    contains: 'ff:ff::',
     isContains: true,
-    cidrs: ["2001:db8::/32", "2001:db8::/16"],
+    cidrs: ['2001:db8::/32', '2001:db8::/16'],
     subnet: {
-      firstHost: "ff:ff::",
+      firstHost: 'ff:ff::',
       ipCount: 256n,
-      lastHost: "ff:ff::ff",
+      lastHost: 'ff:ff::ff',
       prefixLength: 120,
     },
   },
   {
-    cidr: "ff:ff::ff/64",
-    contains: "ff:ff::",
+    cidr: 'ff:ff::ff/64',
+    contains: 'ff:ff::',
     isContains: true,
-    cidrs: ["2001:db8::1/64", "2001:db8::1/48"],
+    cidrs: ['2001:db8::1/64', '2001:db8::1/48'],
     subnet: {
-      firstHost: "ff:ff::",
+      firstHost: 'ff:ff::',
       ipCount: 18446744073709551616n,
-      lastHost: "ff:ff::ffff:ffff:ffff:ffff",
+      lastHost: 'ff:ff::ffff:ffff:ffff:ffff',
       prefixLength: 64,
     },
   },
   {
-    cidr: "ff:ff::ff/128",
-    contains: "ff:ffaa::",
+    cidr: 'ff:ff::ff/128',
+    contains: 'ff:ffaa::',
     isContains: false,
-    cidrs: ["2001:db8::/32", "fe80::/10", "fd00::/8"],
+    cidrs: ['2001:db8::/32', 'fe80::/10', 'fd00::/8'],
     subnet: {
-      firstHost: "ff:ff::ff",
+      firstHost: 'ff:ff::ff',
       ipCount: 1n,
-      lastHost: "ff:ff::ff",
+      lastHost: 'ff:ff::ff',
       prefixLength: 128,
     },
   },
   {
-    cidr: "ff:ff::ff/128",
-    contains: "ff:ffaa::",
+    cidr: 'ff:ff::ff/128',
+    contains: 'ff:ffaa::',
     isContains: false,
     cidrs: [],
     subnet: {
-      firstHost: "ff:ff::ff",
+      firstHost: 'ff:ff::ff',
       ipCount: 1n,
-      lastHost: "ff:ff::ff",
+      lastHost: 'ff:ff::ff',
       prefixLength: 128,
     },
   },
   {
-    cidr: "ff:ff::ff/128",
-    contains: "ff:ffaa::",
+    cidr: 'ff:ff::ff/128',
+    contains: 'ff:ffaa::',
     isContains: false,
-    cidrs: "ff:ff::ff",
+    cidrs: 'ff:ff::ff',
     subnet: {
-      firstHost: "ff:ff::ff",
+      firstHost: 'ff:ff::ff',
       ipCount: 1n,
-      lastHost: "ff:ff::ff",
+      lastHost: 'ff:ff::ff',
       prefixLength: 128,
     },
   },
@@ -191,68 +191,68 @@ const cidrConvertCases = [
 const cidrFailCases = [
   {
     cidr: 212121331,
-    contains: "ff:ff::",
+    contains: 'ff:ff::',
   },
   {
-    cidr: "ff:ff::ff",
-    contains: "ff:ff::",
+    cidr: 'ff:ff::ff',
+    contains: 'ff:ff::',
   },
   {
-    cidr: "ff:ff::ff/129",
-    contains: "ff:ff::",
+    cidr: 'ff:ff::ff/129',
+    contains: 'ff:ff::',
   },
   {
-    cidr: "gf:ff::ff/120",
-    contains: "ff:ff::",
+    cidr: 'gf:ff::ff/120',
+    contains: 'ff:ff::',
   },
   {
-    cidr: "gf:ff::ff/",
-    contains: "ff:ff::",
+    cidr: 'gf:ff::ff/',
+    contains: 'ff:ff::',
   },
   {
-    cidr: "gf:ff::ff",
-    contains: "ff:ff::",
+    cidr: 'gf:ff::ff',
+    contains: 'ff:ff::',
   },
 ];
 
-describe("contains", () => {
+describe('contains', () => {
   test.each(cidrConvertCases)(
-    "判断 $cidr 是否包含 $contains",
+    '判断 $cidr 是否包含 $contains',
     ({ cidr, contains, isContains }) =>
       expect(IPv6.contains(cidr as any, contains as any)).toBe(isContains)
   );
   test.each(cidrFailCases)(
-    "判断 $cidr 是否包含 $contains",
+    '判断 $cidr 是否包含 $contains',
     ({ cidr, contains }) =>
       expect(IPv6.contains(cidr as any, contains as any)).toBe(false)
   );
 });
 
-describe("isCIDR", () => {
-  test.each(cidrConvertCases)("判断 $cidr 是否等于 true", ({ cidr }) =>
+describe('isCIDR', () => {
+  test.each(cidrConvertCases)('判断 $cidr 是否等于 true', ({ cidr }) =>
     expect(IPv6.isCIDR(cidr)).toBe(true)
   );
-  test.each(cidrFailCases)("判断 $cidr 是否为 false", ({ cidr }) =>
+  test.each(cidrFailCases)('判断 $cidr 是否为 false', ({ cidr }) =>
     expect(IPv6.isCIDR(cidr as any)).toBe(false)
   );
 });
 
-describe("isConflict", () => {
+describe('isConflict', () => {
   test.each(cidrConvertCases)(
-    "判断 $cidrs 是否存在冲突, $isContains",
+    '判断 $cidrs 是否存在冲突, $isContains',
     ({ cidrs, isContains }) => {
       expect(IPv6.isConflict(cidrs as any)).toBe(isContains);
     }
   );
 });
 
-describe("parseCIDR", () => {
+describe('parseCIDR', () => {
   test.each(cidrConvertCases)(
-    "判断 $cidr 是否等于 $subnet",
+    '判断 $cidr 是否等于 $subnet',
     ({ cidr, subnet }) =>
       expect(IPv6.parseCIDR(cidr as any)).toMatchObject(subnet)
   );
-  test.each(cidrFailCases)("判断 $cidr 是否等于 undefined", ({ cidr }) =>
+  test.each(cidrFailCases)('判断 $cidr 是否等于 undefined', ({ cidr }) =>
     expect(IPv6.parseCIDR(cidr as any)).toBe(undefined)
   );
 });

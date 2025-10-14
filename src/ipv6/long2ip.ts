@@ -1,4 +1,4 @@
-import { compressedForm } from "./compressedForm";
+import { compressedForm } from './compressedForm';
 
 /**
  * Convert IPv4 number to address string
@@ -14,12 +14,12 @@ import { compressedForm } from "./compressedForm";
  */
 
 export function long2ip(ip: bigint): string | undefined {
-  if (typeof ip !== "bigint") return undefined;
+  if (typeof ip !== 'bigint') return undefined;
   if (ip >= 0n && ip <= 340282366920938463463374607431768211455n) {
     const sections = [];
-    const hex = ip.toString(16).padStart(32, "0");
+    const hex = ip.toString(16).padStart(32, '0');
     for (let i = 0; i < 8; i++) sections.push(hex.slice(i * 4, (i + 1) * 4));
-    return compressedForm(sections.join(":")) as string;
+    return compressedForm(sections.join(':')) as string;
   } else {
     return undefined;
   }

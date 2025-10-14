@@ -1,4 +1,4 @@
-import { ip2long, isValidMask } from "./index";
+import { ip2long, isValidMask } from './index';
 
 /**
  * Convert subnet mask string to mask length number
@@ -14,10 +14,10 @@ import { ip2long, isValidMask } from "./index";
  */
 
 export function toMaskLength(mask: string): number | undefined {
-  if (typeof mask !== "string") return undefined;
+  if (typeof mask !== 'string') return undefined;
   if (!isValidMask(mask)) return undefined;
   const longMask = ip2long(mask);
   const length =
-    longMask === 0 ? 0 : longMask?.toString(2).replaceAll("0", "").length;
+    longMask === 0 ? 0 : longMask?.toString(2).replaceAll('0', '').length;
   return length;
 }

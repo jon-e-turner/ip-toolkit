@@ -4,7 +4,7 @@ import {
   isValidIP,
   isValidMask,
   toSubnetMask,
-} from "./index";
+} from './index';
 
 interface SubNet {
   cidrMask: number;
@@ -43,10 +43,10 @@ interface SubNet {
  */
 
 export function parseCIDR(cidr: string): SubNet | undefined {
-  if (typeof cidr !== "string") return undefined;
+  if (typeof cidr !== 'string') return undefined;
 
-  const [ip, mask] = cidr.split("/");
-  if (ip === undefined || mask === undefined || mask === "") return undefined;
+  const [ip, mask] = cidr.split('/');
+  if (ip === undefined || mask === undefined || mask === '') return undefined;
   if (!isValidIP(ip) || !isValidMask(+mask)) return undefined;
 
   const length = 32 - +mask;
@@ -60,8 +60,8 @@ export function parseCIDR(cidr: string): SubNet | undefined {
     cidrMask: +mask,
     usableCount: +mask < 31 ? ipCount - 2 : ipCount,
     subnetMask: toSubnetMask(+mask) as string,
-    networkAddress: +mask < 31 ? (long2ip(networkIP) as string) : "",
-    broadcastAddress: +mask < 31 ? (long2ip(broadcastIP) as string) : "",
+    networkAddress: +mask < 31 ? (long2ip(networkIP) as string) : '',
+    broadcastAddress: +mask < 31 ? (long2ip(broadcastIP) as string) : '',
     firstHost: long2ip(networkIP + (+mask < 31 ? 1 : 0)) as string,
     lastHost: long2ip(broadcastIP - (+mask < 31 ? 1 : 0)) as string,
   };

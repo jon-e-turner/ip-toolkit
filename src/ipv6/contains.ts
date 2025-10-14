@@ -1,4 +1,4 @@
-import { ip2long, isValidIP, parseCIDR } from "./index";
+import { ip2long, isValidIP, parseCIDR } from './index';
 
 /**
  * Verify if the IPv6 address is within the CIDR range
@@ -14,7 +14,7 @@ import { ip2long, isValidIP, parseCIDR } from "./index";
 
 export function contains(cidr: string, ip: string): boolean {
   const subnet = parseCIDR(cidr);
-  if (typeof subnet !== "object" || !isValidIP(ip)) return false;
+  if (typeof subnet !== 'object' || !isValidIP(ip)) return false;
 
   const { lastHost, firstHost } = subnet;
   const ipLong = ip2long(ip);
@@ -22,9 +22,9 @@ export function contains(cidr: string, ip: string): boolean {
   const firstHostLong = ip2long(firstHost);
 
   if (
-    typeof ipLong === "bigint" &&
-    typeof firstHostLong === "bigint" &&
-    typeof lastHostLong === "bigint"
+    typeof ipLong === 'bigint' &&
+    typeof firstHostLong === 'bigint' &&
+    typeof lastHostLong === 'bigint'
   ) {
     return ipLong >= firstHostLong && ipLong <= lastHostLong;
   }

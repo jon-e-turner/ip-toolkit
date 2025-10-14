@@ -1,4 +1,4 @@
-import { IPv4, IPv6 } from "../index";
+import { IPv4, IPv6 } from '../index';
 
 /**
  * Convert IPv4 or IPv6 address string to number
@@ -32,7 +32,7 @@ export function ip2long(ip: string): number | bigint | undefined {
  */
 
 export function long2ip(ip: number | bigint): string | undefined {
-  if (typeof ip !== "number" && typeof ip !== "bigint") return undefined;
+  if (typeof ip !== 'number' && typeof ip !== 'bigint') return undefined;
   return IPv4.long2ip(ip as number) || IPv6.long2ip(ip as bigint);
 }
 
@@ -51,7 +51,7 @@ export function long2ip(ip: number | bigint): string | undefined {
  */
 
 export function isCIDR(cidr: string): boolean {
-  if (typeof cidr !== "string") return false;
+  if (typeof cidr !== 'string') return false;
   return IPv4.isCIDR(cidr) || IPv6.isCIDR(cidr);
 }
 
@@ -69,7 +69,7 @@ export function isCIDR(cidr: string): boolean {
  */
 
 export function isValidIP(ip: string): boolean {
-  if (typeof ip !== "string") return false;
+  if (typeof ip !== 'string') return false;
   return IPv4.isValidIP(ip) || IPv6.isValidIP(ip);
 }
 
@@ -110,7 +110,7 @@ export function isConflict(cidrs: string[]): boolean {
  */
 
 export function contains(cidr: string, ip: string): boolean {
-  if (typeof cidr !== "string" || typeof ip !== "string") return false;
+  if (typeof cidr !== 'string' || typeof ip !== 'string') return false;
   return IPv4.contains(cidr, ip) || IPv6.contains(cidr, ip);
 }
 
@@ -129,13 +129,13 @@ export function contains(cidr: string, ip: string): boolean {
  * ```
  */
 
-export function ipVersion(ip: string): "IPv4" | "IPv6" | "invalid" {
-  if (typeof ip !== "string") return "invalid";
+export function ipVersion(ip: string): 'IPv4' | 'IPv6' | 'invalid' {
+  if (typeof ip !== 'string') return 'invalid';
   if (IPv4.isValidIP(ip)) {
-    return "IPv4";
+    return 'IPv4';
   } else if (IPv6.isValidIP(ip)) {
-    return "IPv6";
+    return 'IPv6';
   }
 
-  return "invalid";
+  return 'invalid';
 }

@@ -1,5 +1,5 @@
-import { ip2long, long2ip, isValidIP } from "./index";
-import { expandedForm, compressedForm } from "../ipv6/index";
+import { ip2long, long2ip, isValidIP } from './index';
+import { expandedForm, compressedForm } from '../ipv6/index';
 
 interface Result {
   mapped: string;

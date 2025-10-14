@@ -1,4 +1,4 @@
-import { isValidIP, isValidMask, parseCIDR, toMaskLength } from "./index";
+import { isValidIP, isValidMask, parseCIDR, toMaskLength } from './index';
 
 interface SubNet {
   cidrMask: number;
