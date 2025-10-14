@@ -11,7 +11,7 @@ interface BinHex {
  * Expands an abbreviated IPv6 address string into its full representation.
  *
  * @param ip - The IPv6 address string
- * @returns The expanded IPv6 address string or false if invalid
+ * @returns The expanded IPv6 address string or undefined if invalid
  *
  * @example
  * ```
@@ -19,8 +19,8 @@ interface BinHex {
  * ```
  */
 
-export function expandedForm(ip: string): string | false {
-  if (!isValidIP(ip)) return false;
+export function expandedForm(ip: string): string | undefined {
+  if (!isValidIP(ip)) return undefined;
   if (ip === "::") return "0000:".repeat(8).slice(0, -1);
 
   const sections: string[] = ip.split(":");

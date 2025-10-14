@@ -1,47 +1,47 @@
-import { IPv4, IPv6 } from '../index';
+import { IPv4, IPv6 } from "../index";
 
 /**
- * Convert IPv4 or IPv6 address string to number 
- * 
+ * Convert IPv4 or IPv6 address string to number
+ *
  * @param ip - The IPv4 or IPv6 address string
- * @returns The converted IPv4 or IPv6 number or false if invalid
- * 
+ * @returns The converted IPv4 or IPv6 number or undefined if invalid
+ *
  * @example
  * ```
- * ip2long('192.168.0.1')   // 3232235521 
- * ip2long('::ffff:9999')   // 4294941081 
+ * ip2long('192.168.0.1')   // 3232235521
+ * ip2long('::ffff:9999')   // 4294941081
  * ```
  */
 
-export function ip2long(ip: string): number | bigint | false {
-  if (!isValidIP(ip)) return false;
+export function ip2long(ip: string): number | bigint | undefined {
+  if (!isValidIP(ip)) return undefined;
   return IPv4.ip2long(ip) || IPv6.ip2long(ip);
 }
 
 /**
  * Convert IPv4 or IPv6 number to address string
  *
- * @param ip - The IPv4 or IPv6 number 
- * @returns The converted IPv4 or IPv6 address string or false if invalid
- * 
+ * @param ip - The IPv4 or IPv6 number
+ * @returns The converted IPv4 or IPv6 address string or undefined if invalid
+ *
  * @example
  * ```
- * ip2long('192.168.0.1')   // 3232235521 
- * ip2long('::ffff:9999')   // 4294941081 
+ * ip2long('192.168.0.1')   // 3232235521
+ * ip2long('::ffff:9999')   // 4294941081
  * ```
  */
 
-export function long2ip(ip: number | bigint): string | false {
-  if (typeof ip !== 'number' && typeof ip !== 'bigint') return false;
+export function long2ip(ip: number | bigint): string | undefined {
+  if (typeof ip !== "number" && typeof ip !== "bigint") return undefined;
   return IPv4.long2ip(ip as number) || IPv6.long2ip(ip as bigint);
 }
 
 /**
  * Verify if the CIDR address is valid
- * 
+ *
  * @param cidr - The CIDR address string
  * @returns True if valid, false otherwise
- * 
+ *
  * @example
  * ```
  * isCIDR('192.168.1.0/24')  // true
@@ -49,9 +49,9 @@ export function long2ip(ip: number | bigint): string | false {
  * isCIDR('287.168.1.0/34')  // false
  * ```
  */
-  
+
 export function isCIDR(cidr: string): boolean {
-  if (typeof cidr !== 'string') return false;
+  if (typeof cidr !== "string") return false;
   return IPv4.isCIDR(cidr) || IPv6.isCIDR(cidr);
 }
 
@@ -69,16 +69,16 @@ export function isCIDR(cidr: string): boolean {
  */
 
 export function isValidIP(ip: string): boolean {
-  if (typeof ip !== 'string') return false;
+  if (typeof ip !== "string") return false;
   return IPv4.isValidIP(ip) || IPv6.isValidIP(ip);
 }
 
 /**
  * Check for conflicts in a set of CIDR
- * 
+ *
  * @param cidrs - Array of CIDR format address string
  * @returns True if conflict found, false otherwise
- * 
+ *
  * @example
  * ```
  * isConflict(['192.168.1.0/24', '192.168.0.0/24'])  // false
@@ -95,9 +95,9 @@ export function isConflict(cidrs: string[]): boolean {
 
 /**
  * Verify if the IPv4 or IPv6 address is within the CIDR range
- * 
+ *
  * @param cidr - A standard format IPv4 or IPv6 CIDR address
- * @param ip - The IPv4 or IPv6 address to check 
+ * @param ip - The IPv4 or IPv6 address to check
  * @returns True if within range, otherwise false
  *
  * @example
@@ -110,13 +110,13 @@ export function isConflict(cidrs: string[]): boolean {
  */
 
 export function contains(cidr: string, ip: string): boolean {
-  if (typeof cidr !== 'string' || typeof ip !== 'string') return false;
+  if (typeof cidr !== "string" || typeof ip !== "string") return false;
   return IPv4.contains(cidr, ip) || IPv6.contains(cidr, ip);
 }
 
 /**
  * Get IP address version
- * 
+ *
  * @param ip - The IP address string
  * @returns IPv4 or IPv6
  *
@@ -129,13 +129,13 @@ export function contains(cidr: string, ip: string): boolean {
  * ```
  */
 
-export function ipVersion(ip: string): 'IPv4' | 'IPv6' | 'invalid' {
-  if (typeof ip !== 'string') return 'invalid';
+export function ipVersion(ip: string): "IPv4" | "IPv6" | "invalid" {
+  if (typeof ip !== "string") return "invalid";
   if (IPv4.isValidIP(ip)) {
-    return 'IPv4';
+    return "IPv4";
   } else if (IPv6.isValidIP(ip)) {
-    return 'IPv6';
+    return "IPv6";
   }
-  
-  return 'invalid';
+
+  return "invalid";
 }
