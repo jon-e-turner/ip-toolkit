@@ -96,7 +96,7 @@ declare function contains$2(cidr: string, ip: string): boolean;
  * contains('20011:db8::11')   // invalid
  * ```
  */
-declare function ipVersion(ip: string): "IPv4" | "IPv6" | "invalid";
+declare function ipVersion(ip: string): 'IPv4' | 'IPv6' | 'invalid';
 
 declare const index$2_ipVersion: typeof ipVersion;
 declare namespace index$2 {
@@ -264,6 +264,7 @@ declare function isEqual$1(ip1: string | number, ip2: string | number): boolean;
  * ```
  */
 declare function contains$1(cidr: string, ip: string): boolean;
+declare function _contains(cidrHost: number, cidrMask: number, ip: number): boolean;
 
 /**
  * Verify if an IPv4 address is private
@@ -506,6 +507,7 @@ declare function toMaskLength(mask: string): number | undefined;
  */
 declare function toInverseMask(mask: string | number): string | undefined;
 
+declare const index$1__contains: typeof _contains;
 type index$1_ipRange = ipRange;
 declare const index$1_ipRange: typeof ipRange;
 declare const index$1_isPrivate: typeof isPrivate;
@@ -518,7 +520,7 @@ declare const index$1_toInverseMask: typeof toInverseMask;
 declare const index$1_toMaskLength: typeof toMaskLength;
 declare const index$1_toSubnetMask: typeof toSubnetMask;
 declare namespace index$1 {
-  export { contains$1 as contains, ip2long$1 as ip2long, index$1_ipRange as ipRange, isCIDR$1 as isCIDR, isConflict$1 as isConflict, isEqual$1 as isEqual, index$1_isPrivate as isPrivate, index$1_isSameSubnet as isSameSubnet, isValidIP$1 as isValidIP, index$1_isValidMask as isValidMask, long2ip$1 as long2ip, parseCIDR$1 as parseCIDR, index$1_parseSubnet as parseSubnet, index$1_toBinHex as toBinHex, index$1_toIPv6Format as toIPv6Format, index$1_toInverseMask as toInverseMask, index$1_toMaskLength as toMaskLength, index$1_toSubnetMask as toSubnetMask };
+  export { index$1__contains as _contains, contains$1 as contains, ip2long$1 as ip2long, index$1_ipRange as ipRange, isCIDR$1 as isCIDR, isConflict$1 as isConflict, isEqual$1 as isEqual, index$1_isPrivate as isPrivate, index$1_isSameSubnet as isSameSubnet, isValidIP$1 as isValidIP, index$1_isValidMask as isValidMask, long2ip$1 as long2ip, parseCIDR$1 as parseCIDR, index$1_parseSubnet as parseSubnet, index$1_toBinHex as toBinHex, index$1_toIPv6Format as toIPv6Format, index$1_toInverseMask as toInverseMask, index$1_toMaskLength as toMaskLength, index$1_toSubnetMask as toSubnetMask };
 }
 
 /**

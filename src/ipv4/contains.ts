@@ -1,10 +1,10 @@
-import { ipRange, isValidIP, parseCIDR } from './index';
+import { ip2long } from './index';
 
 /**
  * Verify if the IP address is within the CIDR range
- * 
+ *
  * @param cidr - A standard format CIDR address
- * @param ip - The IPv4 address to check 
+ * @param ip - The IPv4 address to check
  * @returns True if within range, otherwise false
  *
  * @example
@@ -15,13 +15,30 @@ import { ipRange, isValidIP, parseCIDR } from './index';
  */
 
 export function contains(cidr: string, ip: string): boolean {
-  const subnet = parseCIDR(cidr);
-  if (typeof subnet !== 'object' || !isValidIP(ip)) return false;
-  
-  const { cidrMask, firstHost, lastHost, networkAddress, broadcastAddress } = subnet;
-  if (cidrMask >= 31) {
-    return ipRange.fromString(firstHost, lastHost).contains(ip);
-  } else {
-    return ipRange.fromString(networkAddress, broadcastAddress).contains(ip);
+  const _cidr = String(cidr);
+  const hostAndMask = _cidr.split('/');
+
+  const cidrHost = ip2long(hostAndMask[0]);
+  const cidrMask = Number.parseInt(hostAndMask[1] ?? 33);
+  const ipAddr = ip2long(ip);
+
+  if (typeof cidrHost === 'undefined' || typeof ipAddr === 'undefined') {
+    return false;
   }
+
+  return _contains(cidrHost, cidrMask, ipAddr);
+}
+
+export function _contains(
+  cidrHost: number,
+  cidrMask: number,
+  ip: number
+): boolean {
+  const netmask =
+    cidrMask >= 0 && cidrMask <= 32
+      ? 2 ** 32 - 2 ** (32 - cidrMask)
+      : undefined;
+
+  if (typeof netmask === 'undefined') return false;
+  return (cidrHost & netmask) === (ip & netmask);
 }
