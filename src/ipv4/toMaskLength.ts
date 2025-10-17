@@ -9,7 +9,7 @@ import { ip2long, isValidMask } from './index';
  * @example
  * ```
  * toMaskLength('255.255.255.0') // 24
- * toMaskLength('255.255.256.0') // false
+ * toMaskLength('255.255.256.0') // undefined
  * ```
  */
 

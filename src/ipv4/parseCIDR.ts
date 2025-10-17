@@ -27,7 +27,7 @@ interface SubNet {
  *
  * @example
  * ```
- * parseCIDR('192.168.0.1/33')    // false
+ * parseCIDR('192.168.0.1/33')    // undefined
  * parseCIDR('192.168.0.1/24')
  * // {
  * //   ipCount: 256,
