@@ -9,7 +9,7 @@ import { compressedForm } from './compressedForm';
  * @example
  * ```
  * long2ip(3232235521) // '192.168.0.1'
- * long2ip(-1) // false
+ * long2ip(-1) // undefined
  * ```
  */
 

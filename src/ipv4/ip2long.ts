@@ -8,7 +8,7 @@ import { isValidIP } from './index';
  * @example
  * ```
  * ip2long('192.168.0.1')   // 3232235521
- * ip2long('192.168.0.257') // false
+ * ip2long('192.168.0.257') // undefined
  * ```
  */
 
