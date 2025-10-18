@@ -19,19 +19,20 @@ export function isReserved(ip: string): boolean {
   const reservedRanges = [
     '0.0.0.0/8', // local, "this" network
     '10.0.0.0/8', // RFC1918 private range
-    '100.64.0.0/10', // carrier-grade NAT
+    '100.64.0.0/10', // carrier-grade NAT TODO: tests
     '127.0.0.0/8', // loopback
     '169.254.0.0/16', // link-local address, for DHCP failures
     '172.16.0.0/12', // RFC1918 private network
-    '192.0.0.0/24', // IETF protocol assignments
-    '192.0.2.0/24', // TEST-NET-1, for documentation and examples
-    '192.88.99.0/24', // IPv6 to IPv4 relay
+    '192.0.0.0/24', // IETF protocol assignments TODO: tests
+    '192.0.2.0/24', // TEST-NET-1, for documentation and examples TODO: tests
+    '192.88.99.0/24', // IPv6 to IPv4 relay TODO: tests
     '192.168.0.0/16', // RFC1918 private network
-    '198.18.0.0/15', // Benchmark testing
-    '198.51.100.0/24', // TEST-NET-2
-    '203.0.113.0/24', // TEST-NET-3
-    '224.0.0.0/4', // Multicast
-    '240.0.0.0/4', // Reserved for future use
+    '198.18.0.0/15', // Benchmark testing TODO: tests
+    '198.51.100.0/24', // TEST-NET-2 TODO: tests
+    '203.0.113.0/24', // TEST-NET-3 TODO: tests
+    '224.0.0.0/4', // Multicast TODO: tests
+    '240.0.0.0/4', // Reserved for future use TODO: tests
+    '255.255.255.255/32', // Reserved for broadcast TODO: tests
   ];
 
   return reservedRanges
