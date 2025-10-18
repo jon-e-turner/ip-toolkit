@@ -33,7 +33,7 @@ const ipConvertCases = [
       expanded: '0000:0000:0000:0000:0000:ffff:0000:0000',
       mapped: '::ffff:0.0.0.0',
     },
-    isPrivate: false,
+    isPrivate: true,
   },
   {
     ip: '1.0.0.1',
@@ -249,7 +249,7 @@ const ipConvertCases = [
       expanded: '0000:0000:0000:0000:0000:ffff:ffff:ffff',
       mapped: '::ffff:255.255.255.255',
     },
-    isPrivate: false,
+    isPrivate: true,
   },
 ];
 
@@ -317,10 +317,10 @@ describe('toIPv6Format', () => {
 describe('isPrivate', () => {
   test.each(ipConvertCases)(
     '判断 $ip 是否为私有专用地址',
-    ({ ip, isPrivate }) => expect(IPv4.isPrivate(ip)).toBe(isPrivate)
+    ({ ip, isPrivate }) => expect(IPv4.isReserved(ip)).toBe(isPrivate)
   );
   test.each(convertFailCases)('判断 $ip 是否为 false', ({ ip }) =>
-    expect(IPv4.isPrivate(ip as any)).toBe(false)
+    expect(IPv4.isReserved(ip as any)).toBe(false)
   );
 });
 

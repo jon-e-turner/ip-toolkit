@@ -5,6 +5,7 @@ export * from './isCIDR';
 export * from './isEqual';
 export * from './contains';
 export * from './isPrivate';
+export * from './isReserved';
 export * from './isValidIP';
 export * from './parseCIDR';
 export * from './isConflict';
