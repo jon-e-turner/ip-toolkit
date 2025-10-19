@@ -1,3 +1,5 @@
+import { ip2long } from './ip2long';
+
 /**
  * Verify if the IPv4 address is valid
  *
@@ -8,16 +10,24 @@
  * @example
  * ```
  * isValidIP('192.168.1.99') // true
- * isValidIP('192.168.01.99', {strict: true}) // false 
+ * isValidIP('192.168.01.99', {strict: true}) // false
  * ```
  */
 
-export function isValidIP(ip: string, options: { strict?: boolean } = { strict: false }): boolean {
+export function isValidIP(
+  ip: string,
+  options: { strict?: boolean } = { strict: false }
+): boolean {
   if (options.strict) {
-    const IPV4_REGEX = /^(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|[1-9])(\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)){3}$/;
-    return IPV4_REGEX.test(ip);
-  } else {
-    const IPV4_REGEX = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/;
-    return IPV4_REGEX.test(ip);
+    const LEADING_ZERO_REGEX = /(\.?0\d{1,2})/;
+    if (LEADING_ZERO_REGEX.test(ip)) return false;
   }
+
+  const [_ip, _mask] = String(ip).split('/', 2);
+
+  // No mask on an IPv4 address implies /32.
+  const mask = parseInt(typeof _mask === 'string' ? _mask : '32');
+  if (isNaN(mask) || mask < 0 || mask > 32) return false;
+
+  return typeof ip2long(ip) === 'number';
 }
