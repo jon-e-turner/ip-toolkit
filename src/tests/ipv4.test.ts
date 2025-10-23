@@ -342,7 +342,7 @@ describe('isValidMask', () => {
   test.each(subnetMaskCases)('判断 $mask 是否等于 true', ({ mask }) =>
     expect(IPv4.isValidMask(mask as any)).toBe(true)
   );
-  test.each(convertFailCases)('将 $mask 是否等于 result', ({ ip }) =>
+  test.each(convertFailCases)('将 $ip 是否等于 result', ({ ip }) =>
     expect(IPv4.isValidMask(ip as any)).toBe(false)
   );
 });
@@ -352,7 +352,7 @@ describe('toSubnetMask', () => {
     '判断 $length 是否等于 $mask',
     ({ mask, length }) => expect(IPv4.toSubnetMask(length as any)).toBe(mask)
   );
-  test.each(convertFailCases)('判断 $mask 是否等于 undefined', ({ ip }) =>
+  test.each(convertFailCases)('判断 $ip 是否等于 undefined', ({ ip }) =>
     expect(IPv4.toSubnetMask(ip as any)).toBe(undefined)
   );
 });
@@ -362,7 +362,7 @@ describe('toMaskLength', () => {
     '判断 $mask 是否等于 $length',
     ({ mask, length }) => expect(IPv4.toMaskLength(mask as any)).toBe(length)
   );
-  test.each(convertFailCases)('判断 $mask 是否等于 undefined', ({ ip }) =>
+  test.each(convertFailCases)('判断 $ip 是否等于 undefined', ({ ip }) =>
     expect(IPv4.toMaskLength(ip as any)).toBe(undefined)
   );
 });
@@ -377,7 +377,7 @@ describe('toInverseMask', () => {
     ({ length, inverse }) =>
       expect(IPv4.toInverseMask(length as any)).toBe(inverse)
   );
-  test.each(convertFailCases)('判断 $mask 是否等于 undefined', ({ ip }) =>
+  test.each(convertFailCases)('判断 $ip 是否等于 undefined', ({ ip }) =>
     expect(IPv4.toInverseMask(ip as any)).toBe(undefined)
   );
 });
