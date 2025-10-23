@@ -1,7 +1,9 @@
 import { ip2long } from './ip2long';
+import { isValidMask } from './isValidMask';
 
 /**
- * Verify if the IPv4 address is valid
+ * Verify if the IPv4 address is valid.
+ * If provided, verify subnet mask is also valid.
  *
  * @param ip - The IPv4 address string
  * @param options - Enable strict mode to disallow leading 0s, false by default
@@ -23,11 +25,8 @@ export function isValidIP(
     if (LEADING_ZERO_REGEX.test(ip)) return false;
   }
 
-  const [_ip, _mask] = String(ip).split('/', 2);
-
-  // No mask on an IPv4 address implies /32.
-  const mask = parseInt(typeof _mask === 'string' ? _mask : '32');
-  if (isNaN(mask) || mask < 0 || mask > 32) return false;
+  if (typeof ip === 'string' && ip.indexOf('/') > 0 && !isValidMask(ip))
+    return false;
 
   return typeof ip2long(ip) === 'number';
 }

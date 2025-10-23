@@ -104,15 +104,17 @@ declare namespace index$2 {
 }
 
 /**
- * Convert IPv4 address string to number
+ * Convert IPv4 address string to number. Only operates on the
+ * "dotted quad" portion of the IPv4 address.
  *
  * @param ip - The IPv4 address string
  * @returns The converted IPv4 number or undefined if invalid
  *
  * @example
  * ```
- * ip2long('192.168.0.1')   // 3232235521
- * ip2long('192.168.0.257') // false
+ * ip2long('192.168.0.1')    // 3232235521
+ * ip2long('192.168.0.1/-1') // 3232235521
+ * ip2long('192.168.0.257')  // undefined
  * ```
  */
 declare function ip2long$1(ip: string): number | undefined;
@@ -126,7 +128,7 @@ declare function ip2long$1(ip: string): number | undefined;
  * @example
  * ```
  * long2ip(3232235521) // '192.168.0.1'
- * long2ip(-1) // false
+ * long2ip(-1) // undefined
  * ```
  */
 declare function long2ip$1(ip: number): string | undefined;
@@ -267,6 +269,7 @@ declare function contains$1(cidr: string, ip: string): boolean;
 declare function _contains(cidrHost: number, cidrMask: number, ip: number): boolean;
 
 /**
+ * @deprecated - use isReserved() instead.
  * Verify if an IPv4 address is private
  * @param ip - The IPv4 address string
  * @returns True if private IPv4, false otherwise
@@ -280,7 +283,21 @@ declare function _contains(cidrHost: number, cidrMask: number, ip: number): bool
 declare function isPrivate(ip: string): boolean;
 
 /**
- * Verify if the IPv4 address is valid
+ * Verify if an IPv4 address is private
+ * @param ip - The IPv4 address string
+ * @returns True if private IPv4, false otherwise
+ *
+ * @example
+ * ```
+ * isReserved('192.168.0.1') // returns true
+ * isReserved('114.114.114.114') // returns false
+ * ```
+ */
+declare function isReserved(ip: string): boolean;
+
+/**
+ * Verify if the IPv4 address is valid.
+ * If provided, verify subnet mask is also valid.
  *
  * @param ip - The IPv4 address string
  * @param options - Enable strict mode to disallow leading 0s, false by default
@@ -316,7 +333,7 @@ interface SubNet$2 {
  *
  * @example
  * ```
- * parseCIDR('192.168.0.1/33')    // false
+ * parseCIDR('192.168.0.1/33')    // undefined
  * parseCIDR('192.168.0.1/24')
  * // {
  * //   ipCount: 256,
@@ -386,16 +403,21 @@ declare function parseSubnet(ip: string, mask: string): SubNet$1 | undefined;
 /**
  * Verify if the subnet mask is valid
  *
+ * Note: this function only validates the mask and ignores the IP
+ * address. To validate both, use `isValidIP(ip: string)`
+ *
  * @param  mask - The subnet mask to valid
  * @returns True if valid, otherwise false
  *
  * @example
  * ```
  * isValidMask(24) // true
+ * isValidMask('192.168.1.1/32) //true
+ * isValidMask('192.168.1.1/-1) //false
  * isValidMask('255.255.255.0') // true
  * isValidMask('255.255.256.0') // false
  * ```
-*/
+ */
 declare function isValidMask(mask: string | number): boolean;
 
 /**
@@ -487,7 +509,7 @@ declare function toSubnetMask(length: number): string | undefined;
  * @example
  * ```
  * toMaskLength('255.255.255.0') // 24
- * toMaskLength('255.255.256.0') // false
+ * toMaskLength('255.255.256.0') // undefined
  * ```
  */
 declare function toMaskLength(mask: string): number | undefined;
@@ -511,6 +533,7 @@ declare const index$1__contains: typeof _contains;
 type index$1_ipRange = ipRange;
 declare const index$1_ipRange: typeof ipRange;
 declare const index$1_isPrivate: typeof isPrivate;
+declare const index$1_isReserved: typeof isReserved;
 declare const index$1_isSameSubnet: typeof isSameSubnet;
 declare const index$1_isValidMask: typeof isValidMask;
 declare const index$1_parseSubnet: typeof parseSubnet;
@@ -520,7 +543,7 @@ declare const index$1_toInverseMask: typeof toInverseMask;
 declare const index$1_toMaskLength: typeof toMaskLength;
 declare const index$1_toSubnetMask: typeof toSubnetMask;
 declare namespace index$1 {
-  export { index$1__contains as _contains, contains$1 as contains, ip2long$1 as ip2long, index$1_ipRange as ipRange, isCIDR$1 as isCIDR, isConflict$1 as isConflict, isEqual$1 as isEqual, index$1_isPrivate as isPrivate, index$1_isSameSubnet as isSameSubnet, isValidIP$1 as isValidIP, index$1_isValidMask as isValidMask, long2ip$1 as long2ip, parseCIDR$1 as parseCIDR, index$1_parseSubnet as parseSubnet, index$1_toBinHex as toBinHex, index$1_toIPv6Format as toIPv6Format, index$1_toInverseMask as toInverseMask, index$1_toMaskLength as toMaskLength, index$1_toSubnetMask as toSubnetMask };
+  export { index$1__contains as _contains, contains$1 as contains, ip2long$1 as ip2long, index$1_ipRange as ipRange, isCIDR$1 as isCIDR, isConflict$1 as isConflict, isEqual$1 as isEqual, index$1_isPrivate as isPrivate, index$1_isReserved as isReserved, index$1_isSameSubnet as isSameSubnet, isValidIP$1 as isValidIP, index$1_isValidMask as isValidMask, long2ip$1 as long2ip, parseCIDR$1 as parseCIDR, index$1_parseSubnet as parseSubnet, index$1_toBinHex as toBinHex, index$1_toIPv6Format as toIPv6Format, index$1_toInverseMask as toInverseMask, index$1_toMaskLength as toMaskLength, index$1_toSubnetMask as toSubnetMask };
 }
 
 /**
@@ -545,7 +568,7 @@ declare function ip2long(ip: string): bigint | undefined;
  * @example
  * ```
  * long2ip(3232235521) // '192.168.0.1'
- * long2ip(-1) // false
+ * long2ip(-1) // undefined
  * ```
  */
 declare function long2ip(ip: bigint): string | undefined;
